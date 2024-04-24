@@ -1,0 +1,108 @@
+body {
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  color: white;
+}
+
+#fullscreen-button {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 1000;
+  width: 40px;
+  height: 40px;
+  background: none;
+  padding: 0;
+  opacity: .5;
+  transition: transform .1s ease-in-out;
+  border: none;
+}
+
+.radio-inputs {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 0.5rem;
+  background-color: #EEE;
+  box-sizing: border-box;
+  box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+  padding: 0.25rem;
+  width: 300px;
+  font-size: 14px;
+}
+
+.radio-inputs .radio {
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+.radio-inputs .radio input {
+  display: none;
+}
+
+.radio-inputs .radio .name {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  border: none;
+  padding: .5rem 0;
+  color: rgba(51, 65, 85, 1);
+  transition: all .15s ease-in-out;
+}
+
+.radio-inputs .radio input:checked + .name {
+  background-color: #fff;
+  font-weight: 600;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+button.startCamera {
+  margin: 15px;
+  font-size: 1.0rem;
+  width: 300px;
+  padding: 1rem 2.5rem;
+  border: none;
+  outline: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  background-color: #fff;
+  color: black;
+  font-weight: 600;
+  transition: 0.6s;
+  box-shadow: 0px 0px 60px #1f4c65;
+  -webkit-box-reflect: below 10px linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.4));
+}
+
+button.startCamera:active {
+  scale: 0.92;
+}
+
+button.startCamera:hover {
+  background: rgb(2,29,78);
+  background: linear-gradient(270deg, rgba(71, 91, 153, 0.681) 0%, rgba(31, 215, 232, 0.873) 60%);
+  color: rgb(4, 4, 38);
+}
+
+.inputs {
+  background-color: rgb(36, 36, 36);
+  border: 1px solid #f7f3f3;
+  border-radius: 0.9rem;
+  padding: 20px;
+  float: right;
+  margin: 20px;
+  box-shadow: 0px 0px 60px rgba(255,255,255,0.5);
+  width: 450px;
+  height: 250px;
+}
