@@ -31,7 +31,7 @@ let results = undefined;
 
 const drawingUtils = new DrawingUtils(canvasCtx);
 
-webcamButton.addEventListener("click", () => {
+function startWebcam() {
   if (!gestureRecognizer) {
     alert("Please wait for gestureRecognizer to load");
     return;
@@ -68,7 +68,7 @@ webcamButton.addEventListener("click", () => {
     canvasElement.style.display = 'block';
     inputs.style.display = "none";
   });
-});
+}
 
 async function predictWebcam() {
   if (video.currentTime !== lastVideoTime) {
@@ -116,16 +116,22 @@ async function predictWebcam() {
   window.requestAnimationFrame(predictWebcam);
 }
 
+// start webcam
+webcamButton.addEventListener("click", startWebcam);
+
 // full screen toggle
 fullscreenButton.addEventListener('click', () => {
-    if (screenfull.isEnabled) {
-        screenfull.toggle(canvasElement, {navigationUI: 'hide'});
-    }
+  if (screenfull.isEnabled) {
+    screenfull.toggle(canvasElement, {navigationUI: 'hide'});
+  }
 });
 
 // exit full screen by clicking mouse
 document.addEventListener('click', () => {
-    if (screenfull.isEnabled && screenfull.isFullscreen) {
-        screenfull.exit();
-    }
+  if (screenfull.isEnabled && screenfull.isFullscreen) {
+    screenfull.exit();
+  }
 });
+
+// orientation change
+document.addEventListener('orientationchange', startWebcam);
