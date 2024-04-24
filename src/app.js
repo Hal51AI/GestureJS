@@ -35,7 +35,8 @@ webcamButton.addEventListener("click", () => {
     return;
   }
 
-  let selectedCamera = document.querySelector('input[name="radio"]:checked').value;
+  // setup front/back camera
+  const selectedCamera = document.querySelector('input[name="radio"]:checked').value;
   const constraints = {
     video: {
       width: {
@@ -49,7 +50,7 @@ webcamButton.addEventListener("click", () => {
       facingMode: selectedCamera,
     }
   };
-  // Activate the webcam stream.
+  // activate the webcam stream.
   navigator.mediaDevices.getUserMedia(constraints).then(stream => {
     let settings = stream.getVideoTracks()[0].getSettings(); 
     let inputs = document.querySelector('.inputs');
@@ -73,10 +74,12 @@ async function predictWebcam() {
     results = gestureRecognizer.recognizeForVideo(video, Date.now());
   }
 
+  // draw image on canvas
   canvasCtx.save();
   canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
   canvasCtx.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
 
+  // draw hand landmarks
   const drawingUtils = new DrawingUtils(canvasCtx);
 
   if (results.landmarks) {
@@ -97,6 +100,7 @@ async function predictWebcam() {
   }
 
   canvasCtx.restore();
+  // display gesture recognition results
   if (results.gestures.length > 0) {
     const categoryName = results.gestures[0][0].categoryName;
     const categoryScore = parseFloat(results.gestures[0][0].score * 100).toFixed(2);
@@ -112,12 +116,14 @@ async function predictWebcam() {
   window.requestAnimationFrame(predictWebcam);
 }
 
+// full screen toggle
 fullscreenButton.addEventListener('click', () => {
     if (screenfull.isEnabled) {
         screenfull.toggle(canvasElement, {navigationUI: 'hide'});
     }
 });
 
+// exit full screen by clicking mouse
 document.addEventListener('click', () => {
     if (screenfull.isEnabled && screenfull.isFullscreen) {
         screenfull.exit();
