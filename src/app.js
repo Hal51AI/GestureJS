@@ -29,6 +29,8 @@ const fullscreenButton = document.getElementById('fullscreen-button');
 let lastVideoTime = -1;
 let results = undefined;
 
+const drawingUtils = new DrawingUtils(canvasCtx);
+
 webcamButton.addEventListener("click", () => {
   if (!gestureRecognizer) {
     alert("Please wait for gestureRecognizer to load");
@@ -80,8 +82,6 @@ async function predictWebcam() {
   canvasCtx.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
 
   // draw hand landmarks
-  const drawingUtils = new DrawingUtils(canvasCtx);
-
   if (results.landmarks) {
     for (const landmarks of results.landmarks) {
       drawingUtils.drawConnectors(
