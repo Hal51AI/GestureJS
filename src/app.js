@@ -31,22 +31,7 @@ let results = undefined;
 
 const drawingUtils = new DrawingUtils(canvasCtx);
 
-function stopWebcamStream(videoElement) {
-  let stream = videoElement.srcObject;
-  let tracks = stream.getTracks();
-
-  tracks.forEach(function(track) {
-    track.stop();
-  });
-
-  videoElement.srcObject = null;
-}
-
 function startWebcam() {
-  if (video.srcObject !== null) {
-    stopWebcamStream(video);
-  }
-
   if (!gestureRecognizer) {
     alert("Please wait for gestureRecognizer to load");
     return;
@@ -147,6 +132,3 @@ document.addEventListener('click', () => {
     screenfull.exit();
   }
 });
-
-// orientation change
-document.addEventListener('orientationchange', startWebcam);
