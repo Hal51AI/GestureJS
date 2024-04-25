@@ -1,5 +1,5 @@
 import * as css from "./style.css";
-import screenfull from 'screenfull';
+import screenfull from "screenfull";
 import {
   GestureRecognizer,
   FilesetResolver,
@@ -8,23 +8,24 @@ import {
 
 // Create task for image file processing:
 const vision = await FilesetResolver.forVisionTasks(
-  "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm",
+  "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
 );
 
 const gestureRecognizer = await GestureRecognizer.createFromOptions(vision, {
   baseOptions: {
-    modelAssetPath: "https://storage.googleapis.com/mediapipe-tasks/gesture_recognizer/gesture_recognizer.task",
-    delegate: "GPU"
+    modelAssetPath:
+      "https://storage.googleapis.com/mediapipe-tasks/gesture_recognizer/gesture_recognizer.task",
+    delegate: "GPU",
   },
   numHands: 2,
-  runningMode: 'VIDEO',
+  runningMode: "VIDEO",
 });
 
 const video = document.getElementById("webcam");
 const canvasElement = document.getElementById("output_canvas");
 const canvasCtx = canvasElement.getContext("2d");
 const webcamButton = document.getElementById("webcamButton");
-const fullscreenButton = document.getElementById('fullscreen-button');
+const fullscreenButton = document.getElementById("fullscreen-button");
 
 let lastVideoTime = -1;
 let results = undefined;
@@ -38,24 +39,26 @@ function startWebcam() {
   }
 
   // setup front/back camera
-  const selectedCamera = document.querySelector('input[name="radio"]:checked').value;
+  const selectedCamera = document.querySelector(
+    'input[name="radio"]:checked'
+  ).value;
   const constraints = {
     video: {
       width: {
         min: 640,
-        ideal: 1280
+        ideal: 1280,
       },
       height: {
         min: 480,
-        ideal: 720
+        ideal: 720,
       },
       facingMode: selectedCamera,
-    }
+    },
   };
   // activate the webcam stream.
-  navigator.mediaDevices.getUserMedia(constraints).then(stream => {
-    let settings = stream.getVideoTracks()[0].getSettings(); 
-    let inputs = document.querySelector('.inputs');
+  navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+    let settings = stream.getVideoTracks()[0].getSettings();
+    let inputs = document.querySelector(".inputs");
 
     video.srcObject = stream;
     video.addEventListener("loadeddata", predictWebcam);
@@ -65,7 +68,7 @@ function startWebcam() {
 
     video.play();
 
-    canvasElement.style.display = 'block';
+    canvasElement.style.display = "block";
     inputs.style.display = "none";
   });
 }
@@ -89,12 +92,12 @@ async function predictWebcam() {
         GestureRecognizer.HAND_CONNECTIONS,
         {
           color: "#00FF00",
-          lineWidth: 5
+          lineWidth: 5,
         }
       );
       drawingUtils.drawLandmarks(landmarks, {
         color: "#FF0000",
-        lineWidth: 2
+        lineWidth: 2,
       });
     }
   }
@@ -103,13 +106,15 @@ async function predictWebcam() {
   // display gesture recognition results
   if (results.gestures.length > 0) {
     const categoryName = results.gestures[0][0].categoryName;
-    const categoryScore = parseFloat(results.gestures[0][0].score * 100).toFixed(2);
+    const categoryScore = parseFloat(
+      results.gestures[0][0].score * 100
+    ).toFixed(2);
     const handedness = results.handednesses[0][0].displayName;
     const text = `GestureRecognizer: ${categoryName}, Confidence: ${categoryScore} %, Handedness: ${handedness}`;
 
     canvasCtx.font = "16px serif";
-    canvasCtx.textAlign = 'center';
-    canvasCtx.fillStyle = 'blue';
+    canvasCtx.textAlign = "center";
+    canvasCtx.fillStyle = "blue";
     canvasCtx.fillText(text, canvasElement.width / 2, 20);
   }
 
@@ -120,14 +125,14 @@ async function predictWebcam() {
 webcamButton.addEventListener("click", startWebcam);
 
 // full screen toggle
-fullscreenButton.addEventListener('click', () => {
+fullscreenButton.addEventListener("click", () => {
   if (screenfull.isEnabled) {
-    screenfull.toggle(canvasElement, {navigationUI: 'hide'});
+    screenfull.toggle(canvasElement, { navigationUI: "hide" });
   }
 });
 
 // exit full screen by clicking mouse
-document.addEventListener('click', () => {
+document.addEventListener("click", () => {
   if (screenfull.isEnabled && screenfull.isFullscreen) {
     screenfull.exit();
   }
