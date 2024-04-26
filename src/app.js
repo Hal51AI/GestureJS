@@ -165,7 +165,8 @@ canvasElement.addEventListener("touchstart", (event) => {
 canvasElement.addEventListener("touchmove", (event) => {
   event.preventDefault();
   const moveX = event.touches[0].clientX;
-  const distance = (moveX - touchX) / window.innerHeight;
+  const distance = (moveX - touchX) / (window.innerHeight * 2);
+  touchX = moveX;
 
-  screenOpacity = Math.max(0, Math.min(1, distance));
+  screenOpacity = Math.max(0, Math.min(1, distance + screenOpacity));
 });
