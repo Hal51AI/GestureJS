@@ -32,8 +32,16 @@ let results = undefined;
 
 let screenOpacity = 0.9;
 let touchX = 0;
+let dragging = false;
 
 const drawingUtils = new DrawingUtils(canvasCtx);
+
+function updateOpacity(currentX) {
+  const distance = (currentX - touchX) / (window.innerHeight * 2);
+  touchX = currentX;
+
+  screenOpacity = Math.max(0, Math.min(1, distance + screenOpacity));
+}
 
 function getScreenSizeConstraints() {
   const isLandscape = /landscape/.test(screen.orientation.type);
@@ -158,15 +166,28 @@ document.addEventListener("click", () => {
   }
 });
 
+// touch events for opacity control
 canvasElement.addEventListener("touchstart", (event) => {
   touchX = event.touches[0].clientX;
 });
-
 canvasElement.addEventListener("touchmove", (event) => {
   event.preventDefault();
-  const moveX = event.touches[0].clientX;
-  const distance = (moveX - touchX) / (window.innerHeight * 2);
-  touchX = moveX;
+  updateOpacity(event.touches[0].clientX);
+});
 
-  screenOpacity = Math.max(0, Math.min(1, distance + screenOpacity));
+// mouse events for opacity control
+canvasElement.addEventListener("mousedown", (event) => {
+  touchX = event.clientX;
+  dragging = true;
+});
+canvasElement.addEventListener("mousemove", (event) => {
+  event.preventDefault();
+  if (dragging) {
+    updateOpacity(event.clientX);
+  }
+});
+canvasElement.addEventListener("mouseup", () => {
+  if (dragging) {
+    dragging = false;
+  }
 });
