@@ -96,6 +96,11 @@ async function predictWebcam() {
   canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
   canvasCtx.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
 
+  // overlay black foreground with some opacity
+  canvasCtx.globalAlpha = 0.9;
+  canvasCtx.fillStyle = "black";
+  canvasCtx.fillRect(0, 0, canvasElement.width, canvasElement.height);
+
   // draw hand landmarks
   if (results.landmarks) {
     for (const landmarks of results.landmarks) {
@@ -126,7 +131,7 @@ async function predictWebcam() {
 
     canvasCtx.font = "16px serif";
     canvasCtx.textAlign = "center";
-    canvasCtx.fillStyle = "blue";
+    canvasCtx.fillStyle = "white";
     canvasCtx.fillText(text, canvasElement.width / 2, 20);
   }
 
