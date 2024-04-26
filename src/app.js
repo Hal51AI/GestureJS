@@ -37,12 +37,12 @@ function getScreenSizeConstraints() {
 
   const sizes = {
     landscape: {
-      width: { min: 640 },
-      height: { min: 360 },
+      width: { min: 640, ideal: Math.min(screen.width, 1280) },
+      height: { min: 360, ideal: Math.min(screen.height, 720) },
     },
     portrait: {
-      width: { min: 360 },
-      height: { min: 640 },
+      width: { min: 360, ideal: Math.min(screen.width, 720) },
+      height: { min: 640, ideal: Math.min(screen.height, 1280) },
     },
   };
 
