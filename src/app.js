@@ -32,6 +32,23 @@ let results = undefined;
 
 const drawingUtils = new DrawingUtils(canvasCtx);
 
+function getScreenSizeConstraints() {
+  const isLandscape = /landscape/.test(screen.orientation.type);
+
+  const sizes = {
+    landscape: {
+      width: { min: 640, ideal: Math.min(screen.width, 1280) },
+      height: { min: 360, ideal: Math.min(screen.height, 720) },
+    },
+    portrait: {
+      width: { min: 360, ideal: Math.min(screen.width, 720) },
+      height: { min: 640, ideal: Math.min(screen.height, 1280) },
+    },
+  };
+
+  return isLandscape ? sizes.landscape : sizes.portrait;
+}
+
 function startWebcam() {
   if (!gestureRecognizer) {
     alert("Please wait for gestureRecognizer to load");
@@ -42,19 +59,14 @@ function startWebcam() {
   const selectedCamera = document.querySelector(
     'input[name="radio"]:checked'
   ).value;
+
   const constraints = {
     video: {
-      width: {
-        min: 640,
-        ideal: 1280,
-      },
-      height: {
-        min: 480,
-        ideal: 720,
-      },
+      ...getScreenSizeConstraints(),
       facingMode: selectedCamera,
     },
   };
+
   // activate the webcam stream.
   navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
     let settings = stream.getVideoTracks()[0].getSettings();
