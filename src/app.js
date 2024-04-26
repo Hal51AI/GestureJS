@@ -41,8 +41,8 @@ function getScreenSizeConstraints() {
       height: { min: 360, ideal: Math.min(screen.height, 720) },
     },
     portrait: {
-      width: { min: 360, ideal: Math.min(screen.width, 720) },
-      height: { min: 640, ideal: Math.min(screen.height, 1280) },
+      width: { min: 360 },
+      height: { min: 640 },
     },
   };
 
