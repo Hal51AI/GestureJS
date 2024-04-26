@@ -30,6 +30,9 @@ const fullscreenButton = document.getElementById("fullscreen-button");
 let lastVideoTime = -1;
 let results = undefined;
 
+let screenOpacity = 0.9;
+let touchX = 0;
+
 const drawingUtils = new DrawingUtils(canvasCtx);
 
 function getScreenSizeConstraints() {
@@ -97,7 +100,7 @@ async function predictWebcam() {
   canvasCtx.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
 
   // overlay black foreground with some opacity
-  canvasCtx.globalAlpha = 0.9;
+  canvasCtx.globalAlpha = screenOpacity;
   canvasCtx.fillStyle = "black";
   canvasCtx.fillRect(0, 0, canvasElement.width, canvasElement.height);
 
@@ -153,4 +156,16 @@ document.addEventListener("click", () => {
   if (screenfull.isEnabled && screenfull.isFullscreen) {
     screenfull.exit();
   }
+});
+
+canvasElement.addEventListener("touchstart", (event) => {
+  touchX = event.touches[0].clientX;
+});
+
+canvasElement.addEventListener("touchmove", (event) => {
+  event.preventDefault();
+  const moveX = event.touches[0].clientX;
+  const distance = (moveX - touchX) / window.innerHeight;
+
+  screenOpacity = Math.max(0, Math.min(1, distance));
 });
