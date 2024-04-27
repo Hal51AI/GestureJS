@@ -37,7 +37,7 @@ let dragging = false;
 const drawingUtils = new DrawingUtils(canvasCtx);
 
 function updateOpacity(currentX) {
-  const distance = (currentX - touchX) / window.innerWidth;
+  const distance = (currentX - touchX) / canvasElement.width;
 
   screenOpacity = Math.max(0, Math.min(1, distance + screenOpacity));
   touchX = currentX;
