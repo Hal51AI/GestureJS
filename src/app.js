@@ -41,7 +41,6 @@ function updateOpacity(currentX) {
   touchX = currentX;
 
   screenOpacity = Math.max(0, Math.min(1, distance + screenOpacity));
-  console.log(screenOpacity);
 }
 
 function getScreenSizeConstraints() {
