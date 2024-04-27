@@ -38,9 +38,9 @@ const drawingUtils = new DrawingUtils(canvasCtx);
 
 function updateOpacity(currentX) {
   const distance = (currentX - touchX) / window.innerWidth;
-  touchX = currentX;
 
   screenOpacity = Math.max(0, Math.min(1, distance + screenOpacity));
+  touchX = currentX;
 }
 
 function getScreenSizeConstraints() {
@@ -111,6 +111,7 @@ async function predictWebcam() {
   canvasCtx.globalAlpha = screenOpacity;
   canvasCtx.fillStyle = "black";
   canvasCtx.fillRect(0, 0, canvasElement.width, canvasElement.height);
+  canvasCtx.globalAlpha = 1;
 
   // draw hand landmarks
   if (results.landmarks) {
