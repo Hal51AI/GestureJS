@@ -134,12 +134,16 @@ async function predictWebcam() {
   canvasCtx.restore();
   // display gesture recognition results
   if (results.gestures.length > 0) {
-    const categoryName = results.gestures[0][0].categoryName;
+    const categoryName = results.gestures[0][0].categoryName
+      .split("_")
+      .join(" ");
+
     const categoryScore = parseFloat(
       results.gestures[0][0].score * 100
     ).toFixed(2);
+
     const handedness = results.handednesses[0][0].displayName;
-    const text = `${categoryScore}%: ${handedness} Hand, ${categoryName} Gesture`;
+    const text = `${categoryScore}%: ${handedness} Hand, ${categoryName}`;
 
     canvasCtx.font = "18px Arial";
     canvasCtx.textAlign = "center";
