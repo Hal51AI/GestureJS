@@ -146,12 +146,13 @@ async function predictWebcam() {
     canvasCtx.fillText(text, canvasElement.width / 2, 20);
   }
 
+  // draw opacity control text
   if (dragging) {
     canvasCtx.font = "Bold 24px Helvetica";
     canvasCtx.textAlign = "center";
     canvasCtx.fillStyle = "white";
     canvasCtx.fillText(
-      `Opacity: ${screenOpacity.toFixed(2)}`,
+      `Opacity: ${(screenOpacity * 100).toFixed(0)}%`,
       canvasElement.width / 2,
       canvasElement.height / 2
     );
