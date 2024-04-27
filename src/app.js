@@ -138,9 +138,9 @@ async function predictWebcam() {
       results.gestures[0][0].score * 100
     ).toFixed(2);
     const handedness = results.handednesses[0][0].displayName;
-    const text = `GestureRecognizer: ${categoryName}, Confidence: ${categoryScore} %, Handedness: ${handedness}`;
+    const text = `${categoryScore}%: ${handedness} Hand, ${categoryName} Gesture`;
 
-    canvasCtx.font = "16px Arial";
+    canvasCtx.font = "18px Arial";
     canvasCtx.textAlign = "center";
     canvasCtx.fillStyle = "white";
     canvasCtx.fillText(text, canvasElement.width / 2, 20);
