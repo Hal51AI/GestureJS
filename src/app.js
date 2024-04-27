@@ -37,10 +37,11 @@ let dragging = false;
 const drawingUtils = new DrawingUtils(canvasCtx);
 
 function updateOpacity(currentX) {
-  const distance = (currentX - touchX) / (window.innerHeight * 2);
+  const distance = (currentX - touchX) / window.innerWidth;
   touchX = currentX;
 
   screenOpacity = Math.max(0, Math.min(1, distance + screenOpacity));
+  console.log(screenOpacity);
 }
 
 function getScreenSizeConstraints() {
