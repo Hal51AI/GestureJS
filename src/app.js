@@ -184,7 +184,7 @@ document.addEventListener("click", () => {
 });
 
 // touch events for opacity control
-canvasElement.addEventListener(
+document.addEventListener(
   "touchstart",
   (event) => {
     touchX = event.touches[0].clientX;
@@ -192,7 +192,7 @@ canvasElement.addEventListener(
   },
   { passive: true }
 );
-canvasElement.addEventListener(
+document.addEventListener(
   "touchmove",
   (event) => {
     if (dragging) {
@@ -201,14 +201,14 @@ canvasElement.addEventListener(
   },
   { passive: true }
 );
-canvasElement.addEventListener("touchend", () => {
+document.addEventListener("touchend", () => {
   if (dragging) {
     dragging = false;
   }
 });
 
 // mouse events for opacity control
-canvasElement.addEventListener(
+document.addEventListener(
   "mousedown",
   (event) => {
     touchX = event.clientX;
@@ -216,7 +216,7 @@ canvasElement.addEventListener(
   },
   { passive: true }
 );
-canvasElement.addEventListener(
+document.addEventListener(
   "mousemove",
   (event) => {
     if (dragging) {
@@ -225,7 +225,7 @@ canvasElement.addEventListener(
   },
   { passive: true }
 );
-canvasElement.addEventListener("mouseup", () => {
+document.addEventListener("mouseup", () => {
   if (dragging) {
     dragging = false;
   }
