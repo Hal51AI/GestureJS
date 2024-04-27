@@ -140,10 +140,21 @@ async function predictWebcam() {
     const handedness = results.handednesses[0][0].displayName;
     const text = `GestureRecognizer: ${categoryName}, Confidence: ${categoryScore} %, Handedness: ${handedness}`;
 
-    canvasCtx.font = "16px serif";
+    canvasCtx.font = "16px Arial";
     canvasCtx.textAlign = "center";
     canvasCtx.fillStyle = "white";
     canvasCtx.fillText(text, canvasElement.width / 2, 20);
+  }
+
+  if (dragging) {
+    canvasCtx.font = "Bold 24px Helvetica";
+    canvasCtx.textAlign = "center";
+    canvasCtx.fillStyle = "white";
+    canvasCtx.fillText(
+      `Opacity: ${screenOpacity.toFixed(2)}`,
+      canvasElement.width / 2,
+      canvasElement.height / 2
+    );
   }
 
   window.requestAnimationFrame(predictWebcam);
@@ -171,16 +182,24 @@ canvasElement.addEventListener(
   "touchstart",
   (event) => {
     touchX = event.touches[0].clientX;
+    dragging = true;
   },
   { passive: true }
 );
 canvasElement.addEventListener(
   "touchmove",
   (event) => {
-    updateOpacity(event.touches[0].clientX);
+    if (dragging) {
+      updateOpacity(event.touches[0].clientX);
+    }
   },
   { passive: true }
 );
+canvasElement.addEventListener("touchend", () => {
+  if (dragging) {
+    dragging = false;
+  }
+});
 
 // mouse events for opacity control
 canvasElement.addEventListener(
