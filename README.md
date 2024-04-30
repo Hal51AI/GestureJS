@@ -7,7 +7,7 @@ This is a JavaScript application that uses a webcam to recognize hand gestures.
 Clone the repository and install dependencies.
 
 ```bash
-$ git clone https://github.com/jjangsangy/GestureJS.git
+$ git clone https://github.com/Hal51AI/GestureJS.git
 $ cd GestureJS
 $ npm install
 ```
