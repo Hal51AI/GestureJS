@@ -2,6 +2,8 @@
 
 This is a JavaScript application that uses a webcam to recognize hand gestures.
 
+![assets](./assets/ui.png)
+
 ## Installation
 
 Clone the repository and install dependencies.
